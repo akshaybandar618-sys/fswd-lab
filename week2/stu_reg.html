@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --accent: #2563eb;
+            --muted: #6b7280;
+            --success: #16a34a;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 32px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #f7fbff 0%, var(--bg) 100%);
+            color: #111827;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(2, 6, 23, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            padding: 28px 32px;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        form {
+            padding: 28px 32px;
+        }
+
+        .form-page {
+            display: none;
+        }
+
+        .form-page.active {
+            display: block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #374151;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dbe3ec;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #eef2ff;
+            color: var(--accent);
+        }
+
+        .btn-muted {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .progress {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .step {
+            flex: 1;
+            height: 8px;
+            border-radius: 10px;
+            background: #eef2f7;
+        }
+
+        .step.active {
+            background: var(--accent);
+        }
+
+        .success {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #ecfdf5;
+            color: var(--success);
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 15px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            form,
+            header {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>Student Registration</h1>
+            <p>Complete the form using the Next and Back buttons.</p>
+
+            <div class="progress">
+                <div class="step step-1 active"></div>
+                <div class="step step-2"></div>
+            </div>
+        </header>
+
+        <form id="regForm">
+
+            <!-- PAGE 1 -->
+            <section class="form-page active" id="page1">
+
+                <div class="grid">
+
+                    <div>
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" name="fullname"
+                               maxlength="100" required>
+                    </div>
+
+                    <div>
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+
+                    <div>
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Choose...</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Non-binary">Non-binary</option>
+                            <option value="Other">Other</option>
+                            <option value="Prefer not to say">
+                                Prefer not to say
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div>
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone"
+                               placeholder="+91 9876543210"
+                               pattern="[0-9+\-() ]{7,20}"
+                               required>
+                    </div>
+
+                    <div class="full">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address"
+                                  maxlength="300"
+                                  placeholder="Street, City, State, PIN"
+                                  required></textarea>
+                    </div>
+
+                </div>
+
+                <div class="actions">
+                    <button type="button" class="btn-muted" disabled>
+                        Previous
+                    </button>
+
+                    <button type="button" class="btn-primary" id="nextBtn">
+                        Next
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- PAGE 2 -->
+            <section class="form-page" id="page2">
+
+                <div class="grid">
+
+                    <div>
+                        <label for="qualification">
+                            Highest Qualification
+                        </label>
+
+                        <select id="qualification"
+                                name="qualification" required>
+                            <option value="">Choose...</option>
+                            <option>High School</option>
+                            <option>Diploma</option>
+                            <option>Bachelor's</option>
+                            <option>Master's</option>
+                            <option>PhD</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="school">School / College Name</label>
+                        <input type="text" id="school" name="school"
+                               maxlength="150" required>
+                    </div>
+
+                    <div>
+                        <label for="course">Course / Branch</label>
+                        <input type="text" id="course" name="course"
+                               maxlength="100" required>
+                    </div>
+
+                    <div>
+                        <label for="year">Year of Passing</label>
+                        <input type="number" id="year" name="year"
+                               min="1900" max="2100" required>
+                    </div>
+
+                    <div>
+                        <label for="score">Percentage / CGPA</label>
+                        <input type="number" id="score" name="score"
+                               min="0" max="100" step="0.01" required>
+                    </div>
+
+                    <div>
+                        <label for="board">University / Board</label>
+                        <input type="text" id="board" name="board"
+                               maxlength="150" required>
+                    </div>
+
+                </div>
+
+                <div class="actions">
+
+                    <button type="button"
+                            class="btn-secondary"
+                            id="backBtn">
+                        Back
+                    </button>
+
+                    <button type="reset" class="btn-muted">
+                        Reset
+                    </button>
+
+                    <button type="submit" class="btn-primary">
+                        Submit
+                    </button>
+
+                </div>
+
+                <div class="success" id="successMsg">
+                    Registration submitted successfully.
+                </div>
+
+            </section>
+
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("regForm");
+        const pages = document.querySelectorAll(".form-page");
+        const steps = document.querySelectorAll(".step");
+
+        const nextBtn = document.getElementById("nextBtn");
+        const backBtn = document.getElementById("backBtn");
+        const successMsg = document.getElementById("successMsg");
+
+        let currentPage = 0;
+
+        // Show selected page
+        function showPage(page) {
+            pages.forEach((section, index) => {
+                section.classList.toggle("active", index === page);
+            });
+
+            steps.forEach((step, index) => {
+                step.classList.toggle("active", index <= page);
+            });
+
+            currentPage = page;
+        }
+
+        // Next button
+        nextBtn.addEventListener("click", function () {
+
+            const fields = pages[0].querySelectorAll(
+                "input, select, textarea"
+            );
+
+            for (let field of fields) {
+                if (!field.checkValidity()) {
+                    field.reportValidity();
+                    return;
+                }
+            }
+
+            showPage(1);
+            window.scrollTo(0, 0);
+        });
+
+        // Back button
+        backBtn.addEventListener("click", function () {
+            showPage(0);
+            window.scrollTo(0, 0);
+        });
+
+        // Submit form
+        form.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const fields = pages[1].querySelectorAll(
+                "input, select, textarea"
+            );
+
+            for (let field of fields) {
+                if (!field.checkValidity()) {
+                    field.reportValidity();
+                    return;
+                }
+            }
+
+            const name = document.getElementById("fullname").value;
+
+            successMsg.textContent =
+                "Registration submitted successfully. Thank you, "
+                + name + "!";
+
+            successMsg.style.display = "block";
+
+            // Clear form after successful submission
+            form.reset();
+
+            // Keep success message visible
+            setTimeout(function () {
+                successMsg.style.display = "none";
+                showPage(0);
+            }, 2500);
+        });
+
+        // Reset form
+        form.addEventListener("reset", function () {
+            setTimeout(function () {
+                showPage(0);
+                successMsg.style.display = "none";
+            }, 0);
+        });
+    </script>
+
+</body>
+</html>
