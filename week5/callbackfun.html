@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Callback Calculator</title>
+</head>
+<body>
+
+<h2>Calculator using Callback</h2>
+
+<input type="number" id="n1" placeholder="Enter first number">
+<input type="number" id="n2" placeholder="Enter second number">
+
+<select id="operator">
+    <option value="+">Addition</option>
+    <option value="-">Subtraction</option>
+    <option value="*">Multiplication</option>
+    <option value="/">Division</option>
+</select>
+
+<button onclick="calculate()">Calculate</button>
+
+<p id="result"></p>
+
+<script>
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    return a / b;
+}
+
+function calculate() {
+    let a = Number(document.getElementById("n1").value);
+    let b = Number(document.getElementById("n2").value);
+    let op = document.getElementById("operator").value;
+    let result;
+
+    if (op == "+")
+        result = operate(a, b, add);
+    else if (op == "-")
+        result = operate(a, b, subtract);
+    else if (op == "*")
+        result = operate(a, b, multiply);
+    else if (op == "/")
+        result = operate(a, b, divide);
+
+    document.getElementById("result").innerHTML = "Result: " + result;
+}
+
+function operate(a, b, callback) {
+    return callback(a, b);
+}
+</script>
+
+</body>
+</html>

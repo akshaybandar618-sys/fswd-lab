@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Traffic Light</title>
+</head>
+<body>
+
+<h2>Traffic Light System</h2>
+
+<div id="light" style="font-size:30px;">RED</div>
+
+<button id="start">Start</button>
+<button id="stop">Stop</button>
+
+<script>
+let running = false;
+let timer;
+
+function changeLight(color, callback) {
+    if (!running)
+        return;
+
+    document.getElementById("light").innerHTML = color;
+
+    timer = setTimeout(callback, 2000);
+}
+
+function red() {
+    changeLight("GREEN", green);
+}
+
+function green() {
+    changeLight("YELLOW", yellow);
+}
+
+function yellow() {
+    changeLight("RED", red);
+}
+
+document.getElementById("start").addEventListener("click", function() {
+    if (!running) {
+        running = true;
+        red();
+    }
+});
+
+document.getElementById("stop").addEventListener("click", function() {
+    running = false;
+    clearTimeout(timer);
+    document.getElementById("light").innerHTML = "STOPPED";
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Tracking</title>
+</head>
+<body>
+
+<h2>Order Tracking</h2>
+<p id="result"></p>
+
+<script>
+function task(message) {
+    return new Promise(function(resolve) {
+        setTimeout(function() {
+            document.getElementById("result").innerHTML += message + "<br>";
+            resolve();
+        }, 1000);
+    });
+}
+
+async function trackOrder() {
+    await task("Order Placed");
+    await task("Order Shipped");
+    await task("Order Delivered");
+}
+
+trackOrder();
+
+
+</script>
+
+</body>
+</html>
